@@ -33,7 +33,7 @@ import javax.swing.RootPaneContainer;
 
 public class Client extends JFrame {
 	private String NickName = null;
-	private File root = new File("D:/³ÌĞò/Java/WangPan/ClientDocument");
+	private File root = new File("ClientDocument");
 	File temproot = new File(root.getPath());
 	Socket socket = null;
 	InputStream iStream = null;
@@ -69,7 +69,7 @@ public class Client extends JFrame {
 	static String UpdateMsg = "UPDATE";
 
 	public Client() throws Exception {
-		NickName = JOptionPane.showInputDialog("ÇëÊäÈëêÇ³Æ");
+		NickName = JOptionPane.showInputDialog("è¯·è¾“å…¥æ˜µç§°");
 		if(NickName == null) {
 			NickName = "default";
 		}
@@ -80,7 +80,7 @@ public class Client extends JFrame {
 		pStream.println(LoginMsg + "#" + NickName);
 
 		UpdateList();
-		dirlist.setFont(new Font("ËÎÌå", Font.BOLD, 15));
+		dirlist.setFont(new Font("å®‹ä½“", Font.BOLD, 15));
 		this.add(jScrollPane);
 		jPanel.setSize(getMaximumSize());
 
@@ -89,12 +89,12 @@ public class Client extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				JList theList = (JList) e.getSource();
 				if (e.getButton() == e.BUTTON1 && e.getClickCount() == 2) {
-					// Êó±êË«»÷Ñ¡ÖĞµÄÎÄ¼ş»òÄ¿Â¼
+					// é¼ æ ‡åŒå‡»é€‰ä¸­çš„æ–‡ä»¶æˆ–ç›®å½•
 					int index = theList.locationToIndex(e.getPoint());
 					// System.out.println(index);
-					// Ë«»÷¿Õ°×´¦Ê±index»áÖÃÎª×îºóÒ»¸öÑ¡Ïî
-					// getCellBounds(index, index).contains(e.getPoint())ÅĞ¶ÏÊó±êµ¥»÷µÄÎ»ÖÃÊÇ·ñÔÚ×îºóÒ»¸öÑ¡ÏîÖĞ
-					// Èô²»ÔÚ¸ÃÑ¡ÏîÖĞÔòÈ¡ÏûÑ¡Ôñ×´Ì¬
+					// åŒå‡»ç©ºç™½å¤„æ—¶indexä¼šç½®ä¸ºæœ€åä¸€ä¸ªé€‰é¡¹
+					// getCellBounds(index, index).contains(e.getPoint())åˆ¤æ–­é¼ æ ‡å•å‡»çš„ä½ç½®æ˜¯å¦åœ¨æœ€åä¸€ä¸ªé€‰é¡¹ä¸­
+					// è‹¥ä¸åœ¨è¯¥é€‰é¡¹ä¸­åˆ™å–æ¶ˆé€‰æ‹©çŠ¶æ€
 					if (index != -1 && !theList.getCellBounds(index, index).contains(e.getPoint())) {
 						dirlist.clearSelection();
 						index = -1;
@@ -102,22 +102,22 @@ public class Client extends JFrame {
 
 					MouseDoubleClick(index);
 				} else if (e.getButton() == e.BUTTON1 && e.getClickCount() == 1) {
-					// Êó±êµ¥»÷¿Õ°×ÇøÓòÊ±È¡ÏûÑ¡ÖĞ
+					// é¼ æ ‡å•å‡»ç©ºç™½åŒºåŸŸæ—¶å–æ¶ˆé€‰ä¸­
 					int index = theList.locationToIndex(e.getPoint());
 					// System.out.println(index);
-					// µ¥»÷¿Õ°×´¦Ê±index»áÖÃÎª×îºóÒ»¸öÑ¡Ïî
-					// getCellBounds(index, index).contains(e.getPoint())ÅĞ¶ÏÊó±êµ¥»÷µÄÎ»ÖÃÊÇ·ñÔÚ×îºóÒ»¸öÑ¡ÏîÖĞ
-					// Èô²»ÔÚ¸ÃÑ¡ÏîÖĞÔòÈ¡ÏûÑ¡Ôñ×´Ì¬
+					// å•å‡»ç©ºç™½å¤„æ—¶indexä¼šç½®ä¸ºæœ€åä¸€ä¸ªé€‰é¡¹
+					// getCellBounds(index, index).contains(e.getPoint())åˆ¤æ–­é¼ æ ‡å•å‡»çš„ä½ç½®æ˜¯å¦åœ¨æœ€åä¸€ä¸ªé€‰é¡¹ä¸­
+					// è‹¥ä¸åœ¨è¯¥é€‰é¡¹ä¸­åˆ™å–æ¶ˆé€‰æ‹©çŠ¶æ€
 					if (index != -1 && !theList.getCellBounds(index, index).contains(e.getPoint())) {
 						dirlist.clearSelection();
 					}
 				} else if (e.getButton() == e.BUTTON3) {
-					// Êó±êÓÒ»÷Ñ¡ÖĞµÄÎÄ¼ş»òÄ¿Â¼
+					// é¼ æ ‡å³å‡»é€‰ä¸­çš„æ–‡ä»¶æˆ–ç›®å½•
 					int index = theList.locationToIndex(e.getPoint());
 					if (index != -1 && !theList.getCellBounds(index, index).contains(e.getPoint())) {
 						index = -1;
 					}
-					// System.out.println("ÓÒ»÷"+index);
+					// System.out.println("å³å‡»"+index);
 					if (index == -1) {
 						dirlist.clearSelection();
 					} else {
@@ -127,7 +127,7 @@ public class Client extends JFrame {
 				}
 			}
 		});
-		/* ÕâÒ»¶Î²»ÒªÍùÇ°·Å£¬ÍùÇ°·Å¾Í²»»áÏÔÊ¾½çÃæ£¬ÎÒÒ²²»ÖªµÀÎªÉ¶ */
+		/* è¿™ä¸€æ®µä¸è¦å¾€å‰æ”¾ï¼Œå¾€å‰æ”¾å°±ä¸ä¼šæ˜¾ç¤ºç•Œé¢ï¼Œæˆ‘ä¹Ÿä¸çŸ¥é“ä¸ºå•¥ */
 		this.setTitle(NickName);
 		this.setSize(600, 400);
 		this.setVisible(true);
@@ -137,17 +137,17 @@ public class Client extends JFrame {
 	}
 
 	// ***
-	// ´¦ÀíÊó±êË«»÷Ê±µÄÊÂ¼ş
+	// å¤„ç†é¼ æ ‡åŒå‡»æ—¶çš„äº‹ä»¶
 	public void MouseDoubleClick(int index) {
 		if (index != -1) {
 			VisitDirAction(index);
-			// ¸üĞÂÁĞ±í
+			// æ›´æ–°åˆ—è¡¨
 			UpdateList();
 		}
 	}
 
 	// ***
-	// ¸üĞÂÁĞ±í
+	// æ›´æ–°åˆ—è¡¨
 	void UpdateList() {
 		try {
 			pStream.println(UpdateMsg + "#");
@@ -164,7 +164,7 @@ public class Client extends JFrame {
 	}
 
 	// ***
-	// ´¦ÀíÊó±êÓÒ»÷Ê±µÄÊÂ¼ş
+	// å¤„ç†é¼ æ ‡å³å‡»æ—¶çš„äº‹ä»¶
 	public void MouseRightClick(int index, int x, int y) {
 		try {
 			if (index == -1) {
@@ -175,7 +175,7 @@ public class Client extends JFrame {
 				pStream.println(CheckTypeMsg + "#" + fileName);
 				String string = bReader.readLine();
 				if (string.equals(IsDirMsg)) {
-					// µ±Ç°Ñ¡ÖĞµÄÎªÎÄ¼ş¼Ğ»ònullÊ±µ¯³öÎÄ¼ş¼Ğ²Ëµ¥
+					// å½“å‰é€‰ä¸­çš„ä¸ºæ–‡ä»¶å¤¹æˆ–nullæ—¶å¼¹å‡ºæ–‡ä»¶å¤¹èœå•
 					dirMenu.show(this, x, y);
 				} else {
 					fileMenu.show(this, x, y);
@@ -187,12 +187,12 @@ public class Client extends JFrame {
 	}
 
 	// ***
-	// ÏÔÊ¾ÎÄ¼ş¼Ğ²Ëµ¥
+	// æ˜¾ç¤ºæ–‡ä»¶å¤¹èœå•
 	class DirMenu extends JPopupMenu {
-		private JMenuItem newDir = new JMenuItem("ĞÂ½¨ÎÄ¼ş¼Ğ");
-		private JMenuItem renameDir = new JMenuItem("ÖØÃüÃû");
-		private JMenuItem deleteDir = new JMenuItem("É¾³ı");
-		private JMenuItem uploadFile = new JMenuItem("ÉÏ´«ÎÄ¼ş");
+		private JMenuItem newDir = new JMenuItem("æ–°å»ºæ–‡ä»¶å¤¹");
+		private JMenuItem renameDir = new JMenuItem("é‡å‘½å");
+		private JMenuItem deleteDir = new JMenuItem("åˆ é™¤");
+		private JMenuItem uploadFile = new JMenuItem("ä¸Šä¼ æ–‡ä»¶");
 
 		public DirMenu() {
 			this.add(newDir);
@@ -251,12 +251,12 @@ public class Client extends JFrame {
 	}
 
 	// ***
-	// ÏÔÊ¾ÎÄ¼ş²Ëµ¥
+	// æ˜¾ç¤ºæ–‡ä»¶èœå•
 	class FileMenu extends JPopupMenu {
-		private JMenuItem newDir = new JMenuItem("ĞÂ½¨ÎÄ¼ş¼Ğ");
-		private JMenuItem renameFile = new JMenuItem("ÖØÃüÃû");
-		private JMenuItem deleteFile = new JMenuItem("É¾³ı");
-		private JMenuItem downloadFile = new JMenuItem("ÏÂÔØÎÄ¼ş");
+		private JMenuItem newDir = new JMenuItem("æ–°å»ºæ–‡ä»¶å¤¹");
+		private JMenuItem renameFile = new JMenuItem("é‡å‘½å");
+		private JMenuItem deleteFile = new JMenuItem("åˆ é™¤");
+		private JMenuItem downloadFile = new JMenuItem("ä¸‹è½½æ–‡ä»¶");
 
 		public FileMenu() {
 			this.add(newDir);
@@ -314,21 +314,21 @@ public class Client extends JFrame {
 		}
 	}
 
-	// ÏÔÊ¾ÉÏ´«ÎÄ¼şÑ¡Ôñ¿ò
+	// æ˜¾ç¤ºä¸Šä¼ æ–‡ä»¶é€‰æ‹©æ¡†
 	class FileChose{
 		private JFileChooser  jFileChooser = null;
 		
 		public FileChose() throws Exception{
 			msg = null;
-			jFileChooser = new JFileChooser("D:/³ÌĞò/Java/WangPan/ClientDocument");
+			jFileChooser = new JFileChooser("D:/ç¨‹åº/Java/WangPan/ClientDocument");
 			jFileChooser.setFileSelectionMode(jFileChooser.FILES_AND_DIRECTORIES);
-			jFileChooser.showDialog(new JLabel(), "Ñ¡Ôñ");
+			jFileChooser.showDialog(new JLabel(), "é€‰æ‹©");
 			File file = jFileChooser.getSelectedFile();
 			if(file.isFile()){
 				msg = file.getPath();
 				UploadFileAction();
 			}else {
-				JOptionPane.showMessageDialog(null, "Ö»ÄÜÉÏ´«µ¥ÎÄ¼ş");
+				JOptionPane.showMessageDialog(null, "åªèƒ½ä¸Šä¼ å•æ–‡ä»¶");
 				msg = null;
 			}
 		}
@@ -336,60 +336,60 @@ public class Client extends JFrame {
 
 
 	// ***
-	// ·ÃÎÊ×ÓÄ¿Â¼
+	// è®¿é—®å­ç›®å½•
 	void VisitDirAction(int index) {
-		// Ñ¡ÖĞÁĞ±í·¶Î§ÄÚ
+		// é€‰ä¸­åˆ—è¡¨èŒƒå›´å†…
 		String s = dirsvect.elementAt(index);
 		// System.out.println(s);
 		if (index == 0) {
-			// ÈôÑ¡ÖĞ¡°...¡±»ò¡°·µ»ØÉÏÒ»¼¶¡±
+			// è‹¥é€‰ä¸­â€œ...â€æˆ–â€œè¿”å›ä¸Šä¸€çº§â€
 			pStream.println(VisitMsg + "#" + ReturnMsg);
 		} else {
-			// ·ÃÎÊÑ¡ÖĞÏî
+			// è®¿é—®é€‰ä¸­é¡¹
 			pStream.println(VisitMsg + "#" + s);
 		}
 	}
 
 	// ***
-	// ÔÚµ±Ç°Ä¿Â¼ÏÂĞÂ½¨ÎÄ¼ş¼Ğ
+	// åœ¨å½“å‰ç›®å½•ä¸‹æ–°å»ºæ–‡ä»¶å¤¹
 	void NewDirAction() throws Exception {
-		String newDirName = JOptionPane.showInputDialog("ÇëÊäÈëÎÄ¼ş¼ĞÃû³Æ", "ĞÂ½¨ÎÄ¼ş¼Ğ");
+		String newDirName = JOptionPane.showInputDialog("è¯·è¾“å…¥æ–‡ä»¶å¤¹åç§°", "æ–°å»ºæ–‡ä»¶å¤¹");
 		if(newDirName == null) {
 			return;
 		}
 		pStream.println(NewDirMsg + "#" + newDirName);
 		if (bReader.readLine().equals(ExistMsg)) {
-			JOptionPane.showMessageDialog(null, "µ±Ç°ÎÄ¼ş¼ĞÒÑ´æÔÚ");
+			JOptionPane.showMessageDialog(null, "å½“å‰æ–‡ä»¶å¤¹å·²å­˜åœ¨");
 		}
 		UpdateList();
 	}
 
 	// ***
-	// ÖØÃüÃûÑ¡ÖĞµÄÎÄ¼ş¼Ğ
+	// é‡å‘½åé€‰ä¸­çš„æ–‡ä»¶å¤¹
 	void RenameDirAction() throws Exception {
 		String preDirName = dirsvect.elementAt(dirlist.getSelectedIndex());
-		String newDirName = JOptionPane.showInputDialog("ÇëÊäÈëĞÂµÄÃû³Æ");
+		String newDirName = JOptionPane.showInputDialog("è¯·è¾“å…¥æ–°çš„åç§°");
 		pStream.println(RenaDirMsg + "#" + preDirName + "#" + newDirName);
 		if (bReader.readLine().equals(ExistMsg)) {
-			JOptionPane.showMessageDialog(null, "ÎŞ·¨ĞŞ¸Äµ±Ç°ÎÄ¼ş¼ĞÃû");
+			JOptionPane.showMessageDialog(null, "æ— æ³•ä¿®æ”¹å½“å‰æ–‡ä»¶å¤¹å");
 		}
 		UpdateList();
 	}
 
 	// ***
-	// É¾³ıÑ¡ÖĞÎÄ¼ş¼Ğ
+	// åˆ é™¤é€‰ä¸­æ–‡ä»¶å¤¹
 	void DeleteDirAction() throws Exception {
 		String DirName = dirsvect.elementAt(dirlist.getSelectedIndex());
 		pStream.println(DelDirMsg + "#" + DirName);
 		if (bReader.readLine().equals(NotExistMsg)) {
-			JOptionPane.showMessageDialog(null, "ÎŞ·¨É¾³ıµ±Ç°ÎÄ¼ş¼Ğ");
+			JOptionPane.showMessageDialog(null, "æ— æ³•åˆ é™¤å½“å‰æ–‡ä»¶å¤¹");
 		}
 		UpdateList();
 	}
 
 	// ***
-	// È±ÉÙÈ¡Ïû²Ù×÷
-	// ÉÏ´«ÎÄ¼şÖÁµ±Ç°Ä¿Â¼ÏÂ
+	// ç¼ºå°‘å–æ¶ˆæ“ä½œ
+	// ä¸Šä¼ æ–‡ä»¶è‡³å½“å‰ç›®å½•ä¸‹
 	void UploadFileAction() throws Exception {
 		if(msg == null) {
 			return;
@@ -411,36 +411,36 @@ public class Client extends JFrame {
 		socket = new Socket("127.0.0.1", 9900);
 		pStream = new PrintStream(socket.getOutputStream());
 		bReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		JOptionPane.showMessageDialog(null, "ÎÄ¼şÉÏ´«Íê³É");
+		JOptionPane.showMessageDialog(null, "æ–‡ä»¶ä¸Šä¼ å®Œæˆ");
 		UpdateList();
 	}
 
 	// ***
-	// ÖØÃüÃûÑ¡ÖĞµÄÎÄ¼ş
+	// é‡å‘½åé€‰ä¸­çš„æ–‡ä»¶
 	void RenameFileAction() throws Exception {
 		String preFileName = dirsvect.elementAt(dirlist.getSelectedIndex());
-		String newFileName = JOptionPane.showInputDialog("ÇëÊäÈëĞÂµÄÃû³Æ");
-		newFileName = newFileName.split("\\.")[0]; // ½ö±£ÁôÓĞĞ§µÄÊäÈë
+		String newFileName = JOptionPane.showInputDialog("è¯·è¾“å…¥æ–°çš„åç§°");
+		newFileName = newFileName.split("\\.")[0]; // ä»…ä¿ç•™æœ‰æ•ˆçš„è¾“å…¥
 		pStream.println(RenaFileMsg + "#" + preFileName + "#" + newFileName);
 		if (bReader.readLine().equals(ExistMsg)) {
-			JOptionPane.showMessageDialog(null, "ÎŞ·¨ĞŞ¸Äµ±Ç°ÎÄ¼şÃû");
+			JOptionPane.showMessageDialog(null, "æ— æ³•ä¿®æ”¹å½“å‰æ–‡ä»¶å");
 		}
 		UpdateList();
 	}
 
 	// ***
-	// É¾³ıÑ¡ÖĞÎÄ¼ş
+	// åˆ é™¤é€‰ä¸­æ–‡ä»¶
 	void DeleteFileAction() throws Exception {
 		String FileName = dirsvect.elementAt(dirlist.getSelectedIndex());
 		pStream.println(DelFileMsg + "#" + FileName);
 		if (bReader.readLine().equals(ExistMsg)) {
-			JOptionPane.showMessageDialog(null, "ÎŞ·¨É¾³ıµ±Ç°ÎÄ¼ş");
+			JOptionPane.showMessageDialog(null, "æ— æ³•åˆ é™¤å½“å‰æ–‡ä»¶");
 		}
 		UpdateList();
 	}
 
 	// ***
-	// ÏÂÔØÎÄ¼ş
+	// ä¸‹è½½æ–‡ä»¶
 	void DownloadFileAction() throws Exception {
 		msg = dirsvect.elementAt(dirlist.getSelectedIndex());
 		pStream.println(DownloadMsg + "#" + msg);
@@ -449,11 +449,11 @@ public class Client extends JFrame {
 		}
 
 		File file = new File(root, msg);
-		file.createNewFile(); // ĞÂ½¨ÎÄ¼ş
+		file.createNewFile(); // æ–°å»ºæ–‡ä»¶
 		// System.out.println(file.getPath());
 		iStream = socket.getInputStream();
 		oStream = new FileOutputStream(file);
-		byte[] data = new byte[2048]; // ´«ÊäÎÄ¼ş
+		byte[] data = new byte[2048]; // ä¼ è¾“æ–‡ä»¶
 		int len = 0;
 		while ((len = iStream.read(data)) != -1) {
 			oStream.write(data, 0, len);
@@ -465,7 +465,7 @@ public class Client extends JFrame {
 		socket = new Socket("127.0.0.1", 9900);
 		pStream = new PrintStream(socket.getOutputStream());
 		bReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		JOptionPane.showMessageDialog(null, "ÎÄ¼şÏÂÔØÍê³É");
+		JOptionPane.showMessageDialog(null, "æ–‡ä»¶ä¸‹è½½å®Œæˆ");
 	}
 
 	public static void main(String[] args) throws Exception {
