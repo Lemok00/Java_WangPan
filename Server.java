@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 
 public class Server extends JFrame implements Runnable {
 	JTextArea jTextArea = new JTextArea();
-	File root = new File("D:/³ÌĞò/Java/WangPan/ServerDocument/");
+	File root = new File("ServerDocument/");
 	File temproot = null;
 	InputStream iStream = null;
 	OutputStream oStream = null;
@@ -47,7 +47,7 @@ public class Server extends JFrame implements Runnable {
 
 	public Server() throws Exception {
 		this.add(jTextArea);
-		this.setTitle("·şÎñÆ÷");
+		this.setTitle("æœåŠ¡å™¨");
 		this.setSize(600, 400);
 		this.setVisible(true);
 		this.setLocation(500, 500);
@@ -59,24 +59,24 @@ public class Server extends JFrame implements Runnable {
 	public void run() {
 		try {
 			serverSocket = new ServerSocket(9900);
-			socket = serverSocket.accept(); // ½ÓÈë¿Í»§¶Ë
-			jTextArea.append("¿Í»§¶Ë½ÓÈë" + "\n");
+			socket = serverSocket.accept(); // æ¥å…¥å®¢æˆ·ç«¯
+			jTextArea.append("å®¢æˆ·ç«¯æ¥å…¥" + "\n");
 			pStream = new PrintStream(socket.getOutputStream());
 			bReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String newClient = bReader.readLine(); // ¶ÁÈëÓÃ»§êÇ³Æ
+			String newClient = bReader.readLine(); // è¯»å…¥ç”¨æˆ·æ˜µç§°
 			newClient = newClient.split("#")[1];
-			temproot = new File(root.getPath() + "/" + newClient + "/"); // ¸ù¾İÃû³ÆĞŞ¸Ä¸ùÄ¿Â¼
+			temproot = new File(root.getPath() + "/" + newClient + "/"); // æ ¹æ®åç§°ä¿®æ”¹æ ¹ç›®å½•
 			root = new File(temproot.getPath());
 			jTextArea.append(temproot.getPath() + "\n");
 			if (!temproot.exists()) {
-				temproot.mkdirs(); // ĞÂ½¨Ä¿Â¼
+				temproot.mkdirs(); // æ–°å»ºç›®å½•
 			}
 			while (true) {
-				msg = bReader.readLine(); // ´Ó¿Í»§¶Ë¶ÁÈëÃüÁîĞÅÏ¢
-				msgs = msg.split("#"); // ¸ù¾İÃüÁîÇ°×ºÅĞ¶ÏÃüÁîĞÅÏ¢
+				msg = bReader.readLine(); // ä»å®¢æˆ·ç«¯è¯»å…¥å‘½ä»¤ä¿¡æ¯
+				msgs = msg.split("#"); // æ ¹æ®å‘½ä»¤å‰ç¼€åˆ¤æ–­å‘½ä»¤ä¿¡æ¯
 				jTextArea.append(msg + "\n");
 
-				if (msgs[0].equals(DownloadMsg)) { // µ±¿Í»§¶ËÒªÇóÏÂÔØÎÄ¼ş
+				if (msgs[0].equals(DownloadMsg)) { // å½“å®¢æˆ·ç«¯è¦æ±‚ä¸‹è½½æ–‡ä»¶
 					DownloadFileAction();
 				} else if (msgs[0].equals(UploadMsg)) {
 					UploadFileAction();
@@ -104,9 +104,9 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	// ***
-	// ÏÂÔØÎÄ¼ş
-	void DownloadFileAction() throws Exception { // ¿Í»§¶ËĞÂ½¨ÏÂÔØ
-		msg = msgs[1]; // »ñÈ¡Ïà¶ÔÂ·¾¶
+	// ä¸‹è½½æ–‡ä»¶
+	void DownloadFileAction() throws Exception { // å®¢æˆ·ç«¯æ–°å»ºä¸‹è½½
+		msg = msgs[1]; // è·å–ç›¸å¯¹è·¯å¾„
 		File file = new File(temproot, msg);
 
 		if (!file.exists()) {
@@ -122,25 +122,25 @@ public class Server extends JFrame implements Runnable {
 		// pStream = new PrintStream(oStream);
 		// pStream.println(msg);
 
-		byte[] data = new byte[2048]; // Êä³öÊı¾İ
+		byte[] data = new byte[2048]; // è¾“å‡ºæ•°æ®
 		int len = 0;
 		while ((len = iStream.read(data)) != -1) {
 			oStream.write(data, 0, len);
 			oStream.flush();
 		}
-		jTextArea.append("ÎÄ¼şÏÂÔØÍê±Ï" + "\n");
+		jTextArea.append("æ–‡ä»¶ä¸‹è½½å®Œæ¯•" + "\n");
 		iStream.close();
-		oStream.close(); // ¹Ø±ÕÊäÈëÊä³öÁ÷
+		oStream.close(); // å…³é—­è¾“å…¥è¾“å‡ºæµ
 		socket.close();
 		socket = serverSocket.accept();
 		pStream = new PrintStream(socket.getOutputStream());
 		bReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		jTextArea.append("¿Í»§¶ËÖØĞÂ½ÓÈë" + "\n");
+		jTextArea.append("å®¢æˆ·ç«¯é‡æ–°æ¥å…¥" + "\n");
 	}
 
 	// ***
-	// ÉÏ´«ÎÄ¼ş
-	void UploadFileAction() throws Exception { // ¿Í»§¶ËĞÂ½¨ÉÏ´«
+	// ä¸Šä¼ æ–‡ä»¶
+	void UploadFileAction() throws Exception { // å®¢æˆ·ç«¯æ–°å»ºä¸Šä¼ 
 		msg = msgs[1];
 
 		File file = new File(temproot, msg);
@@ -155,33 +155,33 @@ public class Server extends JFrame implements Runnable {
 			oStream.write(data, 0, len);
 			oStream.flush();
 		}
-		jTextArea.append("ÎÄ¼şÉÏ´«Íê³É\n");
+		jTextArea.append("æ–‡ä»¶ä¸Šä¼ å®Œæˆ\n");
 		iStream.close();
-		oStream.close(); // ¹Ø±ÕÊäÈëÊä³öÁ÷
+		oStream.close(); // å…³é—­è¾“å…¥è¾“å‡ºæµ
 		socket.close();
 		socket = serverSocket.accept();
 		pStream = new PrintStream(socket.getOutputStream());
 		bReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		jTextArea.append("¿Í»§¶ËÖØĞÂÁ¬½Ó\n");
+		jTextArea.append("å®¢æˆ·ç«¯é‡æ–°è¿æ¥\n");
 	}
 
 	// ***
-	// ·ÃÎÊ×ÓÄ¿Â¼
+	// è®¿é—®å­ç›®å½•
 	void VisitDirAction() throws Exception {
 		msg = msgs[1];
 
 		if (msg.equals(ReturnMsg)) {
 			if (temproot.getPath().equals(root.getPath())) {
-				// ÈôÒÑµ½´ï¸ùÄ¿Â¼£¬ÔòÖ±½Ó·µ»Ø
+				// è‹¥å·²åˆ°è¾¾æ ¹ç›®å½•ï¼Œåˆ™ç›´æ¥è¿”å›
 				return;
 			} else {
-				// ·ñÔòÏòÉÏÒ»¼¶
+				// å¦åˆ™å‘ä¸Šä¸€çº§
 				temproot = temproot.getParentFile();
 			}
 		} else {
 			temproot = new File(temproot, msg);
 			if (!temproot.isDirectory()) {
-				// ÈôÑ¡ÖĞÏîÎªÎÄ¼ş£¬ÔòÈÔ·ÃÎÊÆäË«Ç×Ä¿Â¼
+				// è‹¥é€‰ä¸­é¡¹ä¸ºæ–‡ä»¶ï¼Œåˆ™ä»è®¿é—®å…¶åŒäº²ç›®å½•
 				temproot = temproot.getParentFile();
 				return;
 			}
@@ -189,14 +189,14 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	// ***
-	// ¸üĞÂÁĞ±í
+	// æ›´æ–°åˆ—è¡¨
 	void UpdateList() throws Exception {
 		String[] lists = temproot.list();
 		String string = null;
 		if (temproot.getPath().equals(root.getPath())) {
 			string = "...";
 		} else {
-			string = "·µ»ØÉÏÒ»¼¶";
+			string = "è¿”å›ä¸Šä¸€çº§";
 		}
 		for (String list : lists) {
 			string = string + "@" + list;
@@ -205,12 +205,12 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	// ***
-	// ÅĞ¶ÏÎÄ¼şÀàĞÍ
+	// åˆ¤æ–­æ–‡ä»¶ç±»å‹
 	void CheckType() throws Exception {
 		msg = msgs[1];
 		File file = new File(temproot, msg);
 		if (file.isDirectory()) {
-			// µ±Ç°Ñ¡ÖĞµÄÎªÎÄ¼ş¼Ğ»ònullÊ±µ¯³öÎÄ¼ş¼Ğ²Ëµ¥
+			// å½“å‰é€‰ä¸­çš„ä¸ºæ–‡ä»¶å¤¹æˆ–nullæ—¶å¼¹å‡ºæ–‡ä»¶å¤¹èœå•
 			pStream.println(IsDirMsg);
 		} else {
 			pStream.println(IsFileMsg);
@@ -218,7 +218,7 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	// ***
-	// ÔÚµ±Ç°Ä¿Â¼ÏÂĞÂ½¨ÎÄ¼ş¼Ğ
+	// åœ¨å½“å‰ç›®å½•ä¸‹æ–°å»ºæ–‡ä»¶å¤¹
 	void NewDirAction() throws Exception {
 		String newDirName = msgs[1];
 		File newDir = new File(temproot, newDirName);
@@ -231,7 +231,7 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	// ***
-	// ÖØÃüÃûÑ¡ÖĞµÄÎÄ¼ş¼Ğ
+	// é‡å‘½åé€‰ä¸­çš„æ–‡ä»¶å¤¹
 	void RenameDirAction() throws Exception {
 		String preDirName = msgs[1];
 		String newDirName = msgs[2];
@@ -249,7 +249,7 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	// ***
-	// É¾³ıÑ¡ÖĞÎÄ¼ş¼Ğ
+	// åˆ é™¤é€‰ä¸­æ–‡ä»¶å¤¹
 	void DeleteDirAction() throws Exception {
 		String DirName = msgs[1];
 		File file = new File(temproot, DirName);
@@ -261,11 +261,11 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	// ***
-	// ÖØÃüÃûÑ¡ÖĞµÄÎÄ¼ş
+	// é‡å‘½åé€‰ä¸­çš„æ–‡ä»¶
 	void RenameFileAction() throws Exception {
 		String preFileName = msgs[1];
 		String newFileName = msgs[2];
-		String[] name = preFileName.split("\\."); // ÓÉÓÚsplitº¯ÊıÍ¨¹ıÕıÔò±í´ïÊ½·Ö¸ô£¬Òò´ËÕâÀïÊ¹ÓÃ"\\."·Ö¸ô
+		String[] name = preFileName.split("\\."); // ç”±äºsplitå‡½æ•°é€šè¿‡æ­£åˆ™è¡¨è¾¾å¼åˆ†éš”ï¼Œå› æ­¤è¿™é‡Œä½¿ç”¨"\\."åˆ†éš”
 		if (name[0].equals(newFileName)) {
 			pStream.println(NotExistMsg);
 			return;
@@ -281,7 +281,7 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	//***
-	// É¾³ıÑ¡ÖĞÎÄ¼ş
+	// åˆ é™¤é€‰ä¸­æ–‡ä»¶
 	void DeleteFileAction() throws Exception {
 		String FileName = msgs[1];
 		File file = new File(temproot, FileName);
